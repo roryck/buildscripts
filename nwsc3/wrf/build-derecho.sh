@@ -4,7 +4,7 @@
 # load environment
 module --force purge
 module load ncarenv/23.04
-module load intel/2023.0.0
+module load intel-classic/2023.0.0
 module load cray-mpich/8.1.25
 module load mkl/2023.0.0
 module load netcdf-mpi/4.9.1
