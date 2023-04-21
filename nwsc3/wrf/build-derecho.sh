@@ -15,7 +15,8 @@ module load ncarcompilers/0.8.0
 ./clean -a
 
 # configure dm+sm for broadwell
-# for AMD arch, will need to g/-xCORE-AVX2/s//-march=core-avx2/g; :g/-xHost/s//-march=core-avx2/g
+# for AMD arch w/ the intel compiler, need to swap arch flags
+sed -i "s/-xCORE-AVX2/-march=core-avx2/g;s/-xHost/-march=core-avx2/g" arch/configure.defaults
 echo 67 | ./configure
 
 # build with just a hint of parallelism
