@@ -1,7 +1,7 @@
 # Conditional Makefile macros for this kernel & version:
 
 # User settings (all case-insensitive):
-COMPILER          = cce     # Intel, GNU, ARM (later, PGI?)
+COMPILER          = intel     # Intel, GNU, ARM (later, PGI?)
 ARCH              = rome  # Not currently used (using xHost/native modes)
 MPI               = yes     # Yes/No, True/False or Enabled/Disabled
 
@@ -44,7 +44,7 @@ endif
 # ********* Intel compiler options  ************
 ifeq ($(COMPILER),intel)
   FC := ifort
-  FC_FLAGS += -qno-opt-dynamic-align -fp-model fast -convert big_endian -assume byterecl -ftz -assume realloc_lhs -march=core-avx2 -O3
+  FC_FLAGS += -qno-opt-dynamic-align -fp-model fast -convert big_endian -assume byterecl -ftz -assume realloc_lhs -march=core-avx2 -O3 -qmkl
   # If the MKLROOT variable is set, add that to the link:
   ifneq ($(strip $(MKLROOT)),)
     LD_LIBS += -L${MKLROOT}/lib/intel64 -lmkl_rt
