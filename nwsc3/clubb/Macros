@@ -1,0 +1,63 @@
+# Conditional Makefile macros for this kernel & version:
+
+# User settings (all case-insensitive):
+COMPILER          = cce     # Intel, GNU, ARM (later, PGI?)
+ARCH              = rome  # Not currently used (using xHost/native modes)
+MPI               = yes     # Yes/No, True/False or Enabled/Disabled
+
+
+# ******************************************************************
+# Provide system aliases that MIGHT need to be modified by the end user:
+MPIFC = ftn         # Could be mpif90 (default), or mpiifort, etc
+
+# Compile the LAPACK rountes from the provided source code.
+LAPACKSRC := yes
+
+# Convert all above vars to lower case:
+COMPILER := $(shell echo ${COMPILER} | tr '[:upper:]' '[:lower:]')
+ARCH     := $(shell echo ${ARCH}     | tr '[:upper:]' '[:lower:]')
+MPI      := $(shell echo ${MPI}      | tr '[:upper:]' '[:lower:]')
+
+# Zero out our key variables:
+FC := 
+FC_FLAGS :=
+FC_FLAGS2 :=
+LD_FLAGS :=
+#FC_FLAGS := -craype-verbose -v -V
+#FC_FLAGS2 := -craype-verbose -v -V
+#LD_FLAGS := -hbyteswapio -craype-verbose -v -V -Wl,-M
+
+# Convert all 'true' MPI answers to 'yes', otherwise no:
+ifeq ($(MPI),true)
+  MPI := yes
+else ifeq ($(MPI),enabled)
+  MPI := yes
+endif
+
+ifeq ($(COMPILER),cce)
+  FC := ftn
+  FC_FLAGS += -hbyteswapio -O3 -hnoomp -hfp4 -D_MPI
+  FC_FLAGS2 += -hbyteswapio -O3 -hnoomp -hfp0 -D_MPI
+  LD_FLAGS += -O2 -hnoomp
+endif
+
+# ********* Intel compiler options  ************
+ifeq ($(COMPILER),intel)
+  FC := ifort
+  FC_FLAGS += -qno-opt-dynamic-align -fp-model fast -convert big_endian -assume byterecl -ftz -assume realloc_lhs -march=core-avx2 -O3
+  # If the MKLROOT variable is set, add that to the link:
+  ifneq ($(strip $(MKLROOT)),)
+    LD_LIBS += -L${MKLROOT}/lib/intel64 -lmkl_rt
+    LAPACKSRC := no
+  endif
+
+  FC_FLAGS +=
+endif
+
+# If we're using MPI, then use ${MPIFC}
+ifeq ($(MPI),yes)
+  FC := ${MPIFC}
+  FC_FLAGS += -D_MPI
+  FC_FLAGS2 += -D_MPI
+endif
+
