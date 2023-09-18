@@ -10,7 +10,7 @@ cp $basedir/Make.derecho setup/Make.derecho
 
 # load environment
 module --force purge
-module load ncarenv/23.09 craype/2.7.20 intel/2023.2.1 cray-mpich/8.1.25 ncarcompilers/1.0.0
+module load ncarenv/23.09 craype/2.7.20 intel/2023.2.1 mkl/2023.2.0 cray-mpich/8.1.25 ncarcompilers/1.0.0
 
 # compile executable
 mkdir build
