@@ -1,15 +1,8 @@
 # build script for NWSC-3 WRF Benchmark on Derecho
-# ncarenv-23.04
 
 # load environment
 module --force purge
-module load ncarenv/23.06
-module load intel-classic/2023.0.0
-module load cray-mpich/8.1.25
-module load mkl/2023.0.0
-module load netcdf-mpi/4.9.2
-module load parallel-netcdf/1.12.3
-module load ncarcompilers/1.0.0
+module load ncarenv/23.09 intel-classic/2023.2.1 craype/2.7.20 cray-mpich/8.1.25 mkl/2023.2.0 netcdf-mpi/4.9.2 parallel-netcdf/1.12.3 ncarcompilers/1.0.0
 
 # clean previous build
 ./clean -a

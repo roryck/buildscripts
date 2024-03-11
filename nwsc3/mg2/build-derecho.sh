@@ -19,7 +19,7 @@ cp $basedir/kgen_statefile.lst.192 v14/data.72cores/pcols192/kgen_statefile.lst
 
 # load environment
 module --force purge
-module load ncarenv/23.04 craype/2.7.20 intel-classic/2023.0.0 cray-mpich/8.1.25 mkl/2023.0.0 ncarcompilers/0.8.0
+module load ncarenv/23.09 craype/2.7.20 intel-classic/2023.2.1 cray-mpich/8.1.25 mkl/2023.2.0 ncarcompilers/1.0.0
 
 # compile executable
 cd v14

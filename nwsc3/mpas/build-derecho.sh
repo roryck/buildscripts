@@ -1,16 +1,8 @@
 # build script for NWSC-3 MPAS Benchmark on Derecho
-# ncarenv-23.04
 
 # load environment
 module --force purge
-module load ncarenv/23.04
-module load nvhpc/23.1
-module load cray-mpich/8.1.25
-module load netcdf-mpi/4.9.1
-module load parallel-netcdf/1.12.3
-module load parallelio/2.5.10
-module load cuda/11.7.1
-module load ncarcompilers/0.8.0
+module load ncarenv/23.09 nvhpc/23.7 craype/2.7.20 cray-mpich/8.1.25 cuda/11.7.1 netcdf-mpi/4.9.2 parallel-netcdf/1.12.3 parallelio/2.6.2 ncarcompilers/1.0.0
 
 # clean previous build
 make clean CORE=atmosphere

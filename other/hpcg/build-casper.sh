@@ -6,13 +6,14 @@ basedir=`dirname $fpath`
 echo "BASE: $basedir"
 
 # copy patched files
-cp $basedir/Makefile SRC/FEMAIN/Makefile
+cp $basedir/Make.casper setup/Make.casper
 
 # load environment
-source /etc/profile.d/z00_modules.sh
 module --force purge
-module load ncarenv/23.09 craype/2.7.20 nvhpc/23.7 cray-mpich/8.1.25 netcdf/4.9.2 ncarcompilers/1.0.0 cuda/11.8.0
+module load ncarenv/23.09 intel/2023.2.1 cuda/12.2.1 openmpi/4.1.6 mkl/2023.2.0 ncarcompilers/1.0.0
 
 # compile executable
-cd SRC/FEMAIN
-make clean && make
+mkdir build
+cd build
+../configure casper
+make

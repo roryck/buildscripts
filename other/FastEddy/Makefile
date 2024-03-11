@@ -45,8 +45,8 @@ L_CPPFLAGS =
 TEST_LDFLAGS = -L. -L${NCAR_LDFLAGS_CUDA64} -L${NETCDF}/lib
 TEST_CU_LDFLAGS = -L. -L${NCAR_LDFLAGS_CUDA64} -L${NETCDF}/lib
 
-TEST_LIBS = -lm -lmpi -lstdc++ -lcurand -lcudart -lnetcdf
-TEST_CU_LIBS = -lm -lmpi -lcudart -lnetcdf
+TEST_LIBS = -lm -lmpi -lstdc++ -lcuda -lcurand -lcudart -lnetcdf
+TEST_CU_LIBS = -lm -lmpi -lcuda -lcudart -lnetcdf
 
 
 ################################################################################
@@ -55,7 +55,7 @@ TEST_CU_LIBS = -lm -lmpi -lcudart -lnetcdf
 
 INCLUDES = \
 	-I. \
-	-I ${CRAY_MPICH_PREFIX}/include \
+	-I${CRAY_MPICH_DIR}/include \
 	-I../TIME_INTEGRATION/ \
 	-I../TIME_INTEGRATION/CUDA \
 	-I../HYDRO_CORE \
